@@ -8,19 +8,12 @@ import {
   remove,
 } from "firebase/database";
 import { useFirebase } from "../context/Firebase";
-import { useNavigate } from "react-router-dom";
 
 const Chat = () => {
   const firebase = useFirebase();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!firebase.isLoggedIn) {
-      navigate("/login");
-    }
-  }, [firebase, navigate]);
   const db = getDatabase();
   useEffect(() => {
     const starCountRef = ref(db, "mesagers");

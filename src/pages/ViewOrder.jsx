@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useFirebase } from "../context/Firebase";
 import BookCard from "../components/Card";
 import Loading from "../components/Loading";
-import { useNavigate } from "react-router-dom";
 
 const OrdersPage = () => {
   const firebase = useFirebase();
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (firebase.isLoggedIn) {
@@ -25,15 +23,6 @@ const OrdersPage = () => {
       setLoading(false);
     }
   }, [firebase]);
-
-  console.log(books);
-  if (!firebase.isLoggedIn)
-    return (
-      <div>
-        <h1>Can dang nhap</h1>
-        <button onClick={() => navigate("/login")}>dang nhap</button>
-      </div>
-    );
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 // Components
 import MyNavbar from "./components/Navbar";
@@ -15,6 +15,8 @@ import ViewOrderDetails from "./pages/ViewOrderDetail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Chat from "./pages/Chat";
+import { useEffect } from "react";
+import { useFirebase } from "./context/Firebase";
 
 function App() {
   // const signuoUser = () => {
@@ -28,7 +30,6 @@ function App() {
   // };
   return (
     <div>
-      {/* <button onClick={pullData}>pullData</button> */}
       {/* <button onClick={signuoUser}>create</button> */}
       <MyNavbar />
       <Routes>
