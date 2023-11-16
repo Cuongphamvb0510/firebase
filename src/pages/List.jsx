@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -6,9 +6,11 @@ import { useFirebase } from "../context/Firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../components/Loading";
+import { useNavigate } from "react-router-dom";
 
 const ListingPage = () => {
   const firebase = useFirebase();
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,6 +18,12 @@ const ListingPage = () => {
   const [price, setPrice] = useState("");
   const [coverPic, setCoverPic] = useState("");
   const [resetKey, setResetKey] = useState(0);
+
+  useEffect(() => {
+    if (!firebase.isLoggedIn) {
+      navigate("/login");
+    }
+  }, [firebase, navigate]);
 
   const handleresetForm = () => {
     setName("");
