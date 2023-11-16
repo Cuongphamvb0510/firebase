@@ -145,6 +145,7 @@ export const FirebaseProvider = (props) => {
         getOrders,
         isLoggedIn,
         user,
+        setUser,
       }}
     >
       {props.children}

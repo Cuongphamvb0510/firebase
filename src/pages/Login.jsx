@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 import { useFirebase } from "../context/Firebase";
+import Loading from "../components/Loading";
 
 const LoginPage = () => {
   const firebase = useFirebase();
@@ -12,6 +13,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorLogins, setErrorLogins] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (firebase.isLoggedIn) {
@@ -21,14 +23,16 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     firebase
       .singinUserWithEmailAndPass(email, password)
       .then((userCredential) => {
-        // Signed in
+        setLoading(false);
         const user = userCredential.user;
         console.log("Successfull", user);
       })
       .catch((error) => {
+        setLoading(false);
         const errorCode = error.code;
         const errorMessage = error.message;
         setErrorLogins(errorCode);
@@ -40,6 +44,7 @@ const LoginPage = () => {
       {errorLogins !== "" && (
         <div style={{ color: "red" }}>THÔNG TIN ĐĂNG NHẬP KHÔNG HỢP LỆ</div>
       )}
+      {loading && <Loading />}
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>

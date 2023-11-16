@@ -4,12 +4,23 @@ import CardGroup from "react-bootstrap/CardGroup";
 import BookCard from "../components/Card";
 import { useFirebase } from "../context/Firebase";
 import Loading from "../components/Loading";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const firebase = useFirebase();
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
 
   const [books, setBooks] = useState([]);
+
+  console.log(firebase.isLoggedIn);
+
+  useEffect(() => {
+    if (!firebase.isLoggedIn) {
+      navigate("/login");
+    }
+  }, [firebase, navigate]);
 
   useEffect(() => {
     firebase.listAllBooks().then((books) => {

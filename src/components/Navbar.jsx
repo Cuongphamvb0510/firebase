@@ -14,6 +14,7 @@ const MyNavbar = () => {
     signOut(firebaseAuth)
       .then(() => {
         navigate("/login");
+        firebase.setUser(null);
       })
       .catch((error) => {
         console.log(error);
